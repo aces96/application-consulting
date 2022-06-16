@@ -1,29 +1,29 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import {SafeAreaProvider} from 'react-native-safe-area-context'
+import { LandingPage } from './src/screens/landingPage';
+import {LoginForm} from './src/screens/loginForm'
+import {SignUpForm} from './src/screens/signUp'
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider } from '@ui-kitten/components';
 import {
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
-  View,
 } from 'react-native';
 
 import {
   Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+
+
+const Stack = createNativeStackNavigator();
+
+
+
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -31,35 +31,30 @@ const App = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const Styles = StyleSheet.create({
+    container: {
+      width: '100%',
+      height: '100%'
+    }
+  })
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+        <SafeAreaProvider >
+          <ApplicationProvider {...eva} theme={eva.light}>
+          <ScrollView contentInsetAdjustmentBehavior="automatic"  contentContainerStyle={Styles.container}>
+          <Stack.Navigator  initialRouteName='signup'>
+                <Stack.Screen name= 'landingPage' component={LandingPage}/>
+                <Stack.Screen name= 'login' component={LoginForm}/>
+                <Stack.Screen name= 'signup' component={SignUpForm}/>
+              </Stack.Navigator>
+              {/* <LoginForm/> */}
+          </ScrollView>
+
+          </ApplicationProvider>
+        </SafeAreaProvider>
+    </NavigationContainer>
+    
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
 export default App;
