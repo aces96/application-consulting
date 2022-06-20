@@ -2,18 +2,22 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 let initialState = {
-    repas: []
+    stream: '',
+    myId: undefined,
+    caller: undefined,
+    setCallerSignal: undefined,
+    receivingCall: false,
+    calling: false,
+    callAccepted: false,
+    callRejected: false,
 }
 
-export const cartSlice = createSlice({
+export const cartSlice = createSlice({    
   name: 'mealReducer',
   initialState,
   reducers: {
-    updateCart: (state, action)=>{
-        return {
-          ...state.repas,
-          repas: action.payload
-        }
+    setStream: (state, action)=>{
+          state.stream = action.payload
     }
   },
 })
