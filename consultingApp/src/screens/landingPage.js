@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {LandingPageSvg} from '../components/landingPage.components/SvgImage'
 import { TopTitle, BottomTitle } from '../components/landingPage.components/title'
-import {SubmitButton} from '../components/auth.components/buttons'
 import { View } from 'react-native'
 
 
@@ -24,7 +23,7 @@ export const LandingPage = ()=>{
                 <TopTitle/>
                 <LandingPageSvg/>
                 <BottomTitle/>
-                <SubmitButton title='START NOW'/>
+                <Button containerStyle={{width: '80%', marginBottom:20,  elevation: 10}} title='start now' color='#4B7BE5' size="md"/>
             </View>
 
 

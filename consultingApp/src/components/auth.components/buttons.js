@@ -1,17 +1,19 @@
 import * as React from 'react';
 import { Button } from "@rneui/base";
 import GoogleIcon from '../../assets/google.svg'
-
+import { useEffect } from 'react';
 
 
 
 
 
 export const SubmitButton = (props)=>{
+
+
  
 
     return (
-        <Button containerStyle={{width: '80%', marginBottom:20,  elevation: 10}} title={props.title} color='#4B7BE5' size="md"/>
+        <Button onPress={props.handleSubmit} containerStyle={{width: '80%', marginBottom:20,  elevation: 10}} title={props.title} color='#4B7BE5' size="md"/>
     )
 }
 

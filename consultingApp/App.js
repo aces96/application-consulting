@@ -47,7 +47,7 @@ const App = () => {
         <SafeAreaProvider >
           <ApplicationProvider {...eva} theme={eva.light}>
           <ScrollView contentInsetAdjustmentBehavior="automatic"  contentContainerStyle={Styles.container}>
-          <Stack.Navigator  initialRouteName='lawyerInfo'>
+          <Stack.Navigator  initialRouteName='login'>
                 <Stack.Screen name= 'landingPage' component={LandingPage}/>
                 <Stack.Screen name= 'login' component={LoginForm}/>
                 <Stack.Screen name= 'signup' component={SignUpForm}/>
