@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Input } from "@rneui/themed";
-import { View, Text } from "react-native";
 import { CheckBox } from '@ui-kitten/components';
 
 

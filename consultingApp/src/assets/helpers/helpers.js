@@ -1,6 +1,13 @@
 import axios from 'axios'
+import  {updateEmail} from '../redux/slices/LawyerInfo'
+
 const url = "http://172.16.11.127:5000/api/"
+
+
+
 class HelpersController {
+
+
     
 
     Login = async (payload)=>{
@@ -27,7 +34,24 @@ class HelpersController {
 
     SignUp = async (payload)=>{
         try {
-            const data = axios.post(`${url}signup`, payload, {
+            const data = await axios.post(url+'signup', payload, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then((res)=>{
+                return res.data
+            }).catch((err)=>{
+                return err
+            })
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
+    updateUser = async(payload)=>{
+        try {
+            const data = await axios.post(`${url}lawyerInfo`, payload, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -39,6 +63,7 @@ class HelpersController {
             console.log(error);
             
         }
+
     }
 
 

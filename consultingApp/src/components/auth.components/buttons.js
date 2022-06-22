@@ -13,7 +13,7 @@ export const SubmitButton = (props)=>{
  
 
     return (
-        <Button onPress={props.handleSubmit} containerStyle={{width: '80%', marginBottom:20,  elevation: 10}} title={props.title} color='#4B7BE5' size="md"/>
+        <Button loading={props.loading} onPress={props.handleSubmit} containerStyle={{width: '80%', marginBottom:20,  elevation: 10}} title={props.title} color='#4B7BE5' size="md"/>
     )
 }
 

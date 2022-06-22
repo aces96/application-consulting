@@ -7,7 +7,6 @@ import { SubmitButton } from "../components/auth.components/buttons";
 import { useState } from 'react';
 import HelpersController from '../assets/helpers/helpers';
 import { UserCheckBox } from '../components/auth.components/input';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -16,12 +15,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-export const LoginForm = ()=>{
+export const LoginForm = ({navigation})=>{
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [role, setRole] = useState('')
     const [clientToggle, setClientToggle] = useState(false)
     const [avocatToggle, setAvocatToggle] = useState(false)
+    const [loading, setLoading] = useState(false)
+
 
     const Styles = {
         container: {
@@ -53,20 +54,25 @@ export const LoginForm = ()=>{
     }
 
     const handleSubmit = ()=>{
+        setLoading(true)
         const helper = new HelpersController
         const payload = {
             email: email,
             password: password,
             role: role
         }
-        const user = Api.Login(payload)
+        const user = helper.Login(payload)
 
         const storage = helper.storeData(email,{
             email: email,
             token: user.token
         })
-
-
+        setLoading(false)
+        if(role == 'avocat'){
+            navigation.navigate('infoForm')
+        }else if(role == 'client'){
+            navigation.navigate('clienthome')
+        }
     }
 
     return (
@@ -81,7 +87,7 @@ export const LoginForm = ()=>{
             <View style={{width: '90%', alignItems: 'flex-end', marginBottom: 30}}>
                 <Text style={{color: '#2155CD', textDecorationLine: 'underline'}}>forgot password!</Text>
             </View>
-            <SubmitButton handleSubmit={handleSubmit} title='Submit' />
+            <SubmitButton loading={loading} handleSubmit={handleSubmit} title='Submit' />
             <View style={{width: '90%', alignItems: 'center'}}>
                 <Text>don't have account ?</Text>
                 <Text style={{color: '#2155CD', textDecorationLine: 'underline'}}>Registre now</Text>
