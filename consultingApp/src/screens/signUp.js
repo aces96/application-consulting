@@ -22,9 +22,7 @@ export const  SignUpForm = ({navigation})=>{
     const dispatch = useDispatch()
 
 
-    const dispatchFun = (email)=>{
-        dispatch(updateEmail(email))
-    }
+
 
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
@@ -83,9 +81,11 @@ export const  SignUpForm = ({navigation})=>{
             password: password,
             role: role,
         }
+        console.log(payload);
         const user = helper.SignUp(payload)
-        console.log(user);
-        dispatchFun(email)
+        console.log(email);
+        dispatch(updateEmail(email))
+
 
 
         const storage = helper.storeData(email,{
@@ -93,7 +93,6 @@ export const  SignUpForm = ({navigation})=>{
             token: user.token
         })
         if(role == 'avocat'){
-            console.log(email);
             setLoading(false)
             navigation.navigate('infoForm')
         }else if(role == 'client'){

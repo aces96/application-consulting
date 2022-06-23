@@ -14,6 +14,8 @@ import HelpersController from '../assets/helpers/helpers';
 
 
 export const InfoForm = ({navigation})=>{
+    let email=  useSelector(state=>state.LawyerEmailReducer.email)
+
 
    
 
@@ -21,14 +23,16 @@ export const InfoForm = ({navigation})=>{
     const [secondPrice, setSecondPrice] = useState('')
     const [description, setDescription] = useState('')
     const [image, setImage] = useState('')
-    const [email, setEmail] = useState('')
     const styles = {
         container: {
             width: '100%',
             height: '100%',
             alignItems: 'center'
         }
-    }
+    } 
+
+    
+
 
 
 
@@ -65,6 +69,7 @@ export const InfoForm = ({navigation})=>{
     }
 
     const handleSubmit = ()=>{
+        console.log(email);
         const helper = new HelpersController
         const payload = {
             description:  description,
@@ -72,7 +77,7 @@ export const InfoForm = ({navigation})=>{
             firstPrice: firstPrice,
             secondPrice: secondPrice,
             email: email
-        }
+    }
 
         const user = helper.updateUser(payload)
 

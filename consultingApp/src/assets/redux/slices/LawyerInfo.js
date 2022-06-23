@@ -5,17 +5,19 @@ let initialState = {
     email: ''
 }
 
-export const LawyerIdSlice = createSlice({    
+export const LawyerEmailSlice = createSlice({    
   name: 'LawyerIdReducer',
   initialState,
   reducers: {
     updateEmail: (state, action)=>{
-        state.email = action.payload
+        return{...state.email,
+          email: action.payload
+        }
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { updateEmail} = LawyerIdSlice.actions
+export const { updateEmail} = LawyerEmailSlice.actions
 
-export default LawyerIdSlice.reducer
+export default LawyerEmailSlice.reducer
