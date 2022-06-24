@@ -4,7 +4,7 @@ import { Text } from '@rneui/themed'
 
 
 
-export const LawyerDescription = ()=>{
+export const LawyerDescription = (props)=>{
 
     const styles = {
         container:{
@@ -23,7 +23,7 @@ export const LawyerDescription = ()=>{
             </View>
             <View style={{width: '100%',paddingLeft: 15, paddingRight: 15, fontWeight: '600', alignItems: 'center', marginBottom: 10}}>
                 <Text style={{fontSize: 16, fontWeight: '600'}}>
-                    djkqfLFJHQSKDJFDSFKJDHSKQJSDVBQMJQIZOERIAEFQSDVNQSKNVSJDFNVLSDNVMFGSDGSDSDJDFJKSDKJFSDJD
+                    {props.descr}
                 </Text>
 
             </View>

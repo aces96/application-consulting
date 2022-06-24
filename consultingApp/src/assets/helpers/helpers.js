@@ -1,80 +1,89 @@
 import axios from 'axios';
-import {updateEmail} from '../redux/slices/LawyerInfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const url = 'http://172.16.11.127:5000/api/';
+const url = 'http://192.168.1.5:5000/api/';
 
-export const Login = async payload => {
-  try {
-    const data = await axios
-      .post(`${url}signup`, payload, {
+export const Login =  (payload) => {
+ 
+      return axios
+      .post(`${url}signin`, payload, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
-      .then(res => {
-        return res.data;
-      })
-      .catch(err => {
-        console.log(err);
-        return err.data;
-      });
-  } catch (error) {
-    console.log(error);
-  }
+
+      
+
 };
 
-export const SignUp = async payload => {
-  try {
-    const data = await axios
+export const SignUp =  payload => {
+  return axios
       .post(url + 'signup', payload, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
-      .then(res => {
-        return res.data;
-      })
-      .catch(err => {
-        return err;
-      });
-  } catch (error) {
-    console.log(error);
-  }
 };
 
-export const updateUser = async payload => {
-  try {
-    const data = await axios.post(`${url}lawyerInfo`, payload, {
+export const updateUser =  payload => {
+    return   axios.post(`${url}lawyerInfo`, payload, {
       headers: {
         'Content-Type': 'application/json',
-      },
-    });
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+      }
+})
+}
 
 export const getAllLawyers = () => {
   return axios.get(url + 'lawyer');
 };
 
-export const storeData = async (key, value) => {
+export const storeData =  (key,value) => {
   try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem(key, jsonValue);
+    AsyncStorage.setItem(key, value)
   } catch (e) {
-    console.log(e);
+    // saving error
   }
-};
+}
+  
 
-export const getData = async key => {
-  try {
-    const jsonValue = await AsyncStorage.getItem(key);
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
-  } catch (e) {
-    console.log(e);
-  }
-};
+
+
+
+
+export const getData =  (key) => {
+
+    return   AsyncStorage.getItem(key)
+
+}
+
+
+
+export const getOneLawyer = ()=>{
+
+  return axios.get(url+'oneLawyer', payload, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  
+}
+
+export const sendDemande = (payload, token)=>{
+
+    return axios.post(url+'demande', payload, {
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization" : `Bearer ${token}`
+      },
+    })
+}
+
+
+export const getDemandesByLawyer = (payload)=>{
+
+  return axios.get(url,payload,{
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  } )
+} 

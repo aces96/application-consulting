@@ -8,7 +8,7 @@ import { Text } from '@rneui/themed';
 import { useState, useEffect } from 'react';
 import { launchImageLibrary} from 'react-native-image-picker';
 import {useSelector} from 'react-redux'
-import HelpersController from '../assets/helpers/helpers';
+import {updateUser} from '../assets/helpers/helpers';
 
 
 
@@ -70,7 +70,6 @@ export const InfoForm = ({navigation})=>{
 
     const handleSubmit = ()=>{
         console.log(email);
-        const helper = new HelpersController
         const payload = {
             description:  description,
             image: image,
@@ -79,7 +78,7 @@ export const InfoForm = ({navigation})=>{
             email: email
     }
 
-        const user = helper.updateUser(payload)
+        const user = updateUser(payload)
 
         navigation.navigate('lawyerHome')
 

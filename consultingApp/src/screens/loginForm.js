@@ -3,12 +3,16 @@ import {View} from 'react-native';
 import {LoginTitle} from '../components/auth.components/title';
 import {INPUT} from '../components/auth.components/input';
 import {Text} from '@rneui/themed';
-import {SubmitButton} from '../components/auth.components/buttons';
+import {SignInButton} from '../components/auth.components/buttons';
 import {useState} from 'react';
-import {getAllLawyers, Login, storeData} from '../assets/helpers/helpers';
+import {getAllLawyers, Login, storeData, getDemandesByLawyer, getOneLawyer} from '../assets/helpers/helpers';
 import {UserCheckBox} from '../components/auth.components/input';
 import {useDispatch} from 'react-redux';
 import {addLawyers} from '../assets/redux/slices/lawyers.slice';
+import {addEmail} from '../assets/redux/slices/clientInfo.slice'
+import  {updateEmail} from '../assets/redux/slices/LawyerInfo'
+import { addDemandes } from '../assets/redux/slices/demande.slice';
+
 
 export const LoginForm = ({navigation}) => {
   const dispatch = useDispatch();
@@ -49,6 +53,8 @@ export const LoginForm = ({navigation}) => {
 
   const handleSubmit = async () => {
 
+    console.log('here');
+
 
     setLoading(true);
     const payload = {
@@ -56,22 +62,34 @@ export const LoginForm = ({navigation}) => {
       password: password,
       role: role,
     };
-    const user = Login(payload);
+    let data = await Login(payload);
+    console.log(data.data.token);
 
-    const storage = storeData(email, {
-      email: email,
-      token: user.token,
+
+
+    const storage = await storeData(email, {
+      token: data.data.token,
     });
-    setLoading(false);
     if (role == 'avocat') {
-    navigation.navigate('infoForm');
+      const lawyer = await getOneLawyer({email: email})
+      console.log(lawyer);
+
+      const data = await getDemandesByLawyer({})
+
+      dispatch(updateEmail(email))
+      setLoading(false);
+    // navigation.navigate('infoForm');
+
+
     } else if (role == 'client') {
-        const {data} = await getAllLawyers();
 
-    console.log('jjjjj : ', data);
-    dispatch(addLawyers(data));
-    console.log('jjjjj 2 : ', data);
+    let data = await getAllLawyers();
 
+      console.log('jjjjj : ', data);
+      dispatch(addLawyers(data.data.avocat));
+      dispatch(addEmail(email))
+      console.log('jjjjj 2 : ', data.data.avocat);
+      setLoading(false);
       navigation.navigate('clienthome')
     }
   };
@@ -114,7 +132,7 @@ export const LoginForm = ({navigation}) => {
           forgot password!
         </Text>
       </View>
-      <SubmitButton
+      <SignInButton
         loading={loading}
         handleSubmit={handleSubmit}
         title="Submit"

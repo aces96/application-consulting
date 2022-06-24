@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { View } from "react-native";
 import { Icon, Text } from "@rneui/themed";
+import { PropsService } from '@ui-kitten/components/devsupport';
 
 
 
 
 
-export const TarifSection = ()=>{
+export const TarifSection = (props)=>{
 
 
 
@@ -32,7 +33,7 @@ export const TarifSection = ()=>{
                     </View>
                     <View style={{width: '100%', alignItems: 'center'}}>
                         <Text style={{fontSize: 25  , fontWeight: '700', marginBottom: 10}}>
-                            100DH
+                            {props.secondPrice}
                         </Text>
                     </View>
                 </View>

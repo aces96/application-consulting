@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { View } from "react-native";
-import { SubmitButton } from "../../auth.components/buttons";
+import { Button } from "@rneui/base";   
+import { SubmitButton, PendingButton } from "../../auth.components/buttons";
 
 
 
 
-export const OrderButton = ()=>{
+export const OrderButton = (props)=>{
 
     const styles ={
         container: {
@@ -15,10 +16,18 @@ export const OrderButton = ()=>{
         }
     }
 
+    handleButton = ()=>{
+        if(props.state == 'pending'){
+            return <PendingButton  title='invitation sent'/>
+        }else {
+            return <Button loading={props.loading} onPress={props.handleSubmit} containerStyle={{width: '80%', marginBottom:20,  elevation: 10}} title='Demande' color='#4B7BE5' size="md"/>
+        }
+    }
+
 
     return (
         <View style={styles.container}>
-            <SubmitButton title='DEMANDE'/>
+            {handleButton()}
 
         </View>
 

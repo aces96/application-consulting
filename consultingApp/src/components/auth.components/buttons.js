@@ -16,6 +16,23 @@ export const SubmitButton = (props)=>{
         <Button loading={props.loading} onPress={props.handleSubmit} containerStyle={{width: '80%', marginBottom:20,  elevation: 10}} title={props.title} color='#4B7BE5' size="md"/>
     )
 }
+export const SignInButton = (props)=>{
+
+
+ 
+
+    return (
+        <Button loading={props.loading} onPress={props.handleSubmit} containerStyle={{width: '80%', marginBottom:20,  elevation: 10}} title={props.title} color='#4B7BE5' size="md"/>
+    )
+}
+
+
+export const PendingButton = (props)=>{
+    return (
+        <Button  containerStyle={{width: '80%', marginBottom:20,  elevation: 10, borderWidth: 1, borderColor: '#4B7BE5'}} title={props.title}  size="md" disabled/>
+
+    )
+}
 
 
 

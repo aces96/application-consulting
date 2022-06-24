@@ -2,16 +2,18 @@ import * as React from 'react';
 import { Card } from "../components/client.home/components/card"
 import {  ScrollView } from "react-native"
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {setLawyerInfo} from '../assets/redux/slices/lawyers.slice'
 
 
 
 
 
-export const ClientHome = ()=>{
-    const data = useSelector(state=>state.LawyerReducer.lawyers)
+export const ClientHome = ({navigation})=>{
+    const dispatch = useDispatch()
 
-    const [lawyers, setLawyers] = useState(data)
+    const [lawyers, setLawyers] = useState(useSelector(state=>state.LawyerReducer.lawyers))
+    
 
     const styles = {
         container: {
@@ -21,7 +23,11 @@ export const ClientHome = ()=>{
     }
 
 
-    console.log(data);
+
+    const handleclick = ()=>{
+        const dis = dispatch(setLawyerInfo(lawyers))
+        navigation.navigate('lawyerInfo')
+    }
 
 
 
@@ -32,10 +38,16 @@ export const ClientHome = ()=>{
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
+            {lawyers.map((e)=>{
+                return (
+
+                    <Card handleclick={()=>handleclick()}  uri={e.image} descr={e.description} name={e.fullName} />
+                )
+                
+
+            })}
+            
+
         </ScrollView>
         
 

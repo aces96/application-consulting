@@ -6,7 +6,7 @@ import { Text } from "@rneui/themed";
 import { GoogleButton } from "../components/auth.components/buttons";
 import { UserCheckBox } from "../components/auth.components/input";
 import { useState } from 'react';
-import HelpersController from '../assets/helpers/helpers';
+import  {SignUp, storeData} from '../assets/helpers/helpers';
 import { Button } from "@rneui/base";
 import { useDispatch} from 'react-redux'
 import  {updateEmail} from '../assets/redux/slices/LawyerInfo'
@@ -74,7 +74,6 @@ export const  SignUpForm = ({navigation})=>{
 
     const handleSubmit = async ()=>{
         setLoading(true)
-        const helper = new HelpersController
         const payload = {
             fullName:fullName,
             email: email,
@@ -82,15 +81,15 @@ export const  SignUpForm = ({navigation})=>{
             role: role,
         }
         console.log(payload);
-        const user = helper.SignUp(payload)
+        const {data} = await SignUp(payload)
         console.log(email);
         dispatch(updateEmail(email))
 
 
 
-        const storage = helper.storeData(email,{
+        const storage = storeData(email,{
             email: email,
-            token: user.token
+            token: data.token
         })
         if(role == 'avocat'){
             setLoading(false)
