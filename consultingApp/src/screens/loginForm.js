@@ -11,7 +11,6 @@ import {useDispatch} from 'react-redux';
 import {addLawyers} from '../assets/redux/slices/lawyers.slice';
 import {addEmail} from '../assets/redux/slices/clientInfo.slice'
 import  {updateEmail} from '../assets/redux/slices/LawyerInfo'
-import { addDemandes } from '../assets/redux/slices/demande.slice';
 
 
 export const LoginForm = ({navigation}) => {
@@ -71,14 +70,9 @@ export const LoginForm = ({navigation}) => {
       token: data.data.token,
     });
     if (role == 'avocat') {
-      const lawyer = await getOneLawyer({email: email})
-      console.log(lawyer);
-
-      const data = await getDemandesByLawyer({})
-
       dispatch(updateEmail(email))
-      setLoading(false);
-    // navigation.navigate('infoForm');
+    
+    navigation.navigate('lawyerHome');
 
 
     } else if (role == 'client') {

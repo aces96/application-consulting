@@ -58,9 +58,9 @@ export const getData =  (key) => {
 
 
 
-export const getOneLawyer = ()=>{
+export const getOneLawyer =  (payload)=>{
 
-  return axios.get(url+'oneLawyer', payload, {
+  return  axios.post(url+'oneLawyer', payload, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -79,9 +79,9 @@ export const sendDemande = (payload, token)=>{
 }
 
 
-export const getDemandesByLawyer = (payload)=>{
+export const getDemandesByLawyer =  (payload)=>{
 
-  return axios.get(url,payload,{
+  return  axios.post(url+'demandesByLawyer',payload,{
     headers: {
       'Content-Type': 'application/json',
     },
